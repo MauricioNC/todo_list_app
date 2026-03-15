@@ -1,0 +1,12 @@
+<div class="w-1/6">
+  <%= form_with model: task do |f| %>
+    <div>
+      <%= f.text_field :title, placeholder: "Task title", class: "outline-none border-2 border-gray-400 p-2 rounded w-full m-0" %>
+    </div>
+
+    <div class="mt-2">
+      <%= f.submit "Create Task", class: "outline-none border-0 p-2 bg-green-500 text-white rounded" %>
+      <%= link_to "Cancel", root_path, class: "p-2 bg-gray-500 text-white rounded inline-block" %>
+    </div>
+  <% end %>
+</div>
