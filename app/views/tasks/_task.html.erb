@@ -1,2 +1,14 @@
-<h1><%= task.title %></h1>
-<p><%= task.details %></p>
+<h1 class="text-3xl"><%= task.title %></h1>
+
+<%= turbo_frame_tag "task_details" do %>
+  <% if task.details.present? %>
+    <%= turbo_frame_tag dom_id(task),
+                        data: { controller: "frame-loader", action: "click->frame-loader#load", url: edit_task_path(task) },
+                        class: "w-1/2 h-40 min-h-40 border border-gray-400 rounded-md p-2 inline-block" do %>
+      <%= task.details %>
+    <% end %>
+  <% else %>
+    <p>No details available.</p>
+    <%= link_to "Add details to task", edit_task_path(task), data: { turbo_frame: "task_details" } %>
+  <% end %>
+<% end %>

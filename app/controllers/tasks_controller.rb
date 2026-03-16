@@ -11,14 +11,26 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        # redirect_to root_path, notice: "Task created successfully."
         format.turbo_stream { }
         format.html { redirect_to root_path, notice: "Task created successfully." }
       else
         render :new, status: :unprocessable_entity
       end
     end
+  end
 
+  def edit
+    @task = Task.find(params[:id])
+  end
+
+  def update
+    @task = Task.find(params[:id])
+
+    if @task.update(task_params)
+      redirect_to @task, notice: "Task updated successfully."
+    else
+      render :show, status: :unprocessable_entity
+    end
   end
 
   private
