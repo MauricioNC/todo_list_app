@@ -1,15 +1,16 @@
-<%= turbo_frame_tag new_task_path do %>
-  <%= link_to "New task", new_task_path, class: "p-2 bg-blue-500 text-white rounded" %>
-<% end %>
+<div class="w-1/2">
+  <%= link_to "New task", new_task_path, class: "p-2 mb-2 bg-[crimson] text-white rounded", data: { turbo_frame: dom_id(Task.new) } %>
+  <%= turbo_frame_tag Task.new, class: "w-full text-end" %>
 
-<% if @tasks.any? %>
-  <%= turbo_frame_tag "tasks" do %>
-    <ul>
+  <% if @tasks.any? %>
+    <%= turbo_frame_tag "tasks", class: "w-full flex flex-col" do %>
       <% @tasks.each do |task| %>
-        <li id="<%= dom_id(task) %>"><%= link_to task.title, task_path(task), data: { turbo_frame: "_top" } %></li>
+        <%= turbo_frame_tag dom_id(task), class: "shadow-md p-5 my-1 rounded-lg w-full text-[crimson]" do %>
+          <%= link_to task.title, task_path(task), data: { turbo_frame: "_top" } %>
+        <% end %>
       <% end %>
-    </ul>
+    <% end %>
+  <% else %>
+    <p>No tasks found.</p>
   <% end %>
-<% else %>
-  <p>No tasks found.</p>
-<% end %>
+</div>

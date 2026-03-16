@@ -1,3 +1,8 @@
 <%= turbo_stream.prepend :tasks do %>
-  <li id="<%= dom_id(@task) %>"><%= link_to @task.title, task_path(@task), data: { turbo_frame: "_top" } %></li>
+  <%= turbo_frame_tag dom_id(@task), class: "shadow-md p-5 my-1 rounded-lg w-full text-[crimson]" do %>
+    <%= link_to @task.title, task_path(@task), data: { turbo_frame: "_top" } %>
+  <% end %>
 <% end %>
+
+<%= turbo_stream.replace Task.new, "" %>
+
